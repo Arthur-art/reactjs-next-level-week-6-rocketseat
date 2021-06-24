@@ -10,3 +10,6 @@
 
 # Instalando o firebase no projeto
 - yarn add firebase
+
+# Configurando firebase na pasta services
+- 
