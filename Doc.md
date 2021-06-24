@@ -23,3 +23,7 @@
 
 # Instalando React router para navegar entre as pages
 - yarn add react-router-dom
+- Instalando tipos a lib que não foi criado com typescript
+    - yarn add @types/react-router-dom -D
+
+# Configurando Rotas com react-route-dom no component App.tsx
