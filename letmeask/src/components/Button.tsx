@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { ButtonHTMLAttributes } from 'react'
+import "../styles/button.scss"
 
-export const Button = ()=>{
+type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement>
 
-    return(
-        <button className="button" type="submit"></button>
+export const Button = (props: ButtonProps) => {
+
+    return (
+        <button className="button" {...props} ></button>
     )
 }
