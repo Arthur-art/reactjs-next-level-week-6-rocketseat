@@ -20,3 +20,6 @@
 
 # Instalando SASS para estilização dos components
 - yarn add node-sass@^5.0.0
+
+# Instalando React router para navegar entre as pages
+- yarn add react-router-dom
