@@ -12,3 +12,6 @@ import firebase from "firebase";
   };
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
+
+  export const auth = firebase.auth();
+  export const database = firebase.database();

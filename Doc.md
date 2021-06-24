@@ -12,4 +12,4 @@
 - yarn add firebase
 
 # Configurando firebase na pasta services
-- 
+- Conectando firebase no react no arquivo firebase.ts
