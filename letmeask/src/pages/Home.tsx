@@ -2,19 +2,20 @@ import React from 'react'
 import illustrationImg from '../assets/images/illustration.svg'
 import logoImg from '../assets/images/logo.svg'
 import googleImg from '../assets/images/google-icon.svg'
+import '../styles/auth.scss'
 
 
 export const Home = () => {
 
     return (
         <>
-            <div>
+            <div id="page-auth">
                 <aside>
                     <img src={illustrationImg} />
                     <strong>{"Crie salas de Q&A ao-vivo"}</strong>
                     <p>Tire dúvidas da sua audiência em tempo real</p>
                 </aside>
-                <main>
+                <main className="main-content">
                     <div>
                         <img src={logoImg} alt="Letmeask" />
                         <button>
@@ -23,9 +24,9 @@ export const Home = () => {
                         </button>
                         <div>ou entre em uma sala</div>
                         <form>
-                            <input type="text" placeholder="Digite o código da sala"/>
+                            <input type="text" placeholder="Digite o código da sala" />
+                            <button type="submit">Entrar na sala</button>
                         </form>
-                        <button type="submit">Entrar na sala</button>
                     </div>
                 </main>
             </div>
