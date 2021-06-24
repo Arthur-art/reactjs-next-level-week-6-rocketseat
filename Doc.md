@@ -17,3 +17,6 @@
 
 # Desenvolvendo Home.tsx na pasta pages
 - Desenvolvendo esqueleto JSX no component Home
+
+# Instalando SASS para estilização dos components
+- yarn add node-sass@^5.0.0
