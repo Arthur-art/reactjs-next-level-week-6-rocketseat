@@ -18,7 +18,7 @@ export const Home = () => {
                 <main>
                     <div className="main-content">
                         <img src={logoImg} alt="Letmeask" />
-                        <button>
+                        <button className="create-room">
                             <img src={googleImg} alt="GoogleImg" />
                             Crie sua sala com o Google
                         </button>

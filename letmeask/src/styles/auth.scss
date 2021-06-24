@@ -58,35 +58,63 @@
                     border: 1px solid var(--grey);
                 }
 
-                button{
+                button {
                     margin-top: 16px;
                 }
 
-                button,input{
+                button,
+                input {
                     width: 100%;
                 }
             }
-            
-            .separator{
+
+            .create-room {
+                margin-top: 64px;
+                height: 50px;
+                border-radius: 8px;
+                font-weight: 500;
+                background: var(--red);
+                color: var(--white);
+
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                transition: filter 0.2s;
+
+                cursor: pointer;
+
+                border: 0;
+
+                img{
+                    margin-right: 8px;
+                }
+
+                &:hover{
+                    filter: brightness(0.9)
+                }
+            }
+
+            .separator {
                 font-size: 14px;
                 color: var(--grey);
                 margin: 32px 0;
                 display: flex;
                 align-items: center;
-                
-                &::before{
-                    content:'';
-                    flex:1;
+
+                &::before {
+                    content: "";
+                    flex: 1;
                     height: 1px;
-                    background: var(--grey); 
+                    background: var(--grey);
                     margin-right: 16px;
                 }
 
-                &::after{
-                    content:'';
-                    flex:1;
+                &::after {
+                    content: "";
+                    flex: 1;
                     height: 1px;
-                    background: var(--grey); 
+                    background: var(--grey);
                     margin-left: 16px;
                 }
             }
