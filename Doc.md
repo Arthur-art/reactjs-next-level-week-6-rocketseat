@@ -27,3 +27,5 @@
     - yarn add @types/react-router-dom -D
 
 # Configurando Rotas com react-route-dom no component App.tsx
+
+# Trabalhando com hook useHistory para navegar entre os components atravez de rotas
