@@ -14,3 +14,5 @@
 # Configurando firebase na pasta services
 - Conectando firebase no react no arquivo firebase.ts
 - Guardando credenciais do firebase em variaveis de ambiente em um arquivo .env.local
+
+# Desenvolvendo Home.tsx na pasta pages

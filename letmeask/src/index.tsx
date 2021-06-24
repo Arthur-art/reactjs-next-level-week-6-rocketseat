@@ -1,14 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {App} from './App'
+import { Home } from './pages/Home';
+
+import "./services/firebase"
 
 ReactDOM.render(
   <React.StrictMode>
-   <App text={"ReactJs"}/>
-   <App text={"TypeScript"}/>
-   <App text={"SASS"}/>
-   <App text={"NodeJs"}/>
-   <App/>
+   <Home />
   </React.StrictMode>,
   document.getElementById('root')
 );
