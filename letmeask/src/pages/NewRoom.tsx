@@ -6,13 +6,19 @@ import googleImg from '../assets/images/google-icon.svg'
 import { Button } from '../components/Button'
 import '../styles/auth.scss'
 import { authContextProvider } from "../contexts/AuthContext"
+import { useState } from 'react'
 
 export const NewRoom = () => {
 
     const {user, signWithGoogle} = useContext(authContextProvider)
 
+    const [newRoom, setNewRoom] = useState("")
+
     const handleCreateRoom = (event:FormEvent)=>{
         event.preventDefault()
+        if(newRoom.trim() === ""){
+            return;
+        }
     }
 
     return (
@@ -28,7 +34,7 @@ export const NewRoom = () => {
                         <img src={logoImg} alt="Letmeask" />
                         <h2>Criar uma nova sala</h2>
                         <form onSubmit={handleCreateRoom}>
-                            <input type="text" placeholder="Nome da sala" />
+                            <input onChange={event => setNewRoom(event.target.value)} type="text" placeholder="Nome da sala" />
                             <Button type="submit">Criar uma sala</Button>
                         </form>
                         <p>Quer entrar em uma sala existente ? <Link to="/">clique aqui</Link></p>

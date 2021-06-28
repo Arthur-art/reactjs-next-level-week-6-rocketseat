@@ -1,4 +1,4 @@
-import React, { useContext, FormEvent } from 'react'
+import React, { useContext, FormEvent, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import illustrationImg from '../assets/images/illustration.svg'
 import logoImg from '../assets/images/logo.svg'
@@ -41,7 +41,7 @@ export const Home = () => {
                         </button>
                         <div className="separator">ou entre em uma sala</div>
                         <form onSubmit={handleForms}>
-                            <input type="text" placeholder="Digite o código da sala" />
+                            <input  type="text" placeholder="Digite o código da sala" />
                             <Button type="submit">Entrar na sala</Button>
                         </form>
                     </div>
