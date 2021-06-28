@@ -5,6 +5,7 @@ import { Home } from './pages/Home'
 import { NewRoom } from './pages/NewRoom'
 
 import { BrowserRouter, Route } from "react-router-dom"
+import { useEffect } from 'react'
 
 type User = {
     id: string;
@@ -22,6 +23,26 @@ export const authContextProvider = createContext({} as AuthContextType)
 export const App = ({ text }: any) => {
 
     const [user, setUser] = useState<User>()
+
+    useEffect(() => {
+        auth.onAuthStateChanged(user => {
+            if (user) {
+
+                const { displayName, photoURL, uid } = user;
+
+                if (!displayName || !photoURL) {
+                    throw new Error("Conta da google invalida")
+                }
+
+                setUser({
+                    id: uid,
+                    name: displayName,
+                    imgProfile: photoURL
+                })
+            }
+
+        })
+    }, [])
 
 
     async function signWithGoogle() {
