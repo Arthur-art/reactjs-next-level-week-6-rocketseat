@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, FormEvent } from 'react'
 import { useHistory } from 'react-router-dom'
 import illustrationImg from '../assets/images/illustration.svg'
 import logoImg from '../assets/images/logo.svg'
@@ -20,6 +20,10 @@ export const Home = () => {
         history.push("/rooms/news")
     }
 
+    const handleForms = (event:FormEvent)=>{
+        event.preventDefault()
+    }
+
     return (
         <>
             <div id="page-auth">
@@ -36,7 +40,7 @@ export const Home = () => {
                             Crie sua sala com o Google
                         </button>
                         <div className="separator">ou entre em uma sala</div>
-                        <form>
+                        <form onSubmit={handleForms}>
                             <input type="text" placeholder="Digite o código da sala" />
                             <Button type="submit">Entrar na sala</Button>
                         </form>
