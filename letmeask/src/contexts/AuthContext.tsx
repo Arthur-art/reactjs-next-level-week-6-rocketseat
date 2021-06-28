@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useEffect, useState } from "react"
+import React,{ createContext, ReactNode, useEffect, useState } from "react"
 import {auth,firebase} from "../services/firebase"
 
 type User = {
@@ -15,6 +15,12 @@ type AuthContextType = {
 type contextProps = {
     children: ReactNode
 }
+
+
+export const authContextProvider = createContext({} as AuthContextType)
+
+export const AuthContextProvider = ({children}:contextProps)=>{
+
 
 const [user, setUser] = useState<User>()
 
@@ -60,9 +66,7 @@ async function signWithGoogle() {
     }
 }
 
-export const authContextProvider = createContext({} as AuthContextType)
 
-export const AuthContextProvider = ({children}:contextProps)=>{
     return (
         <authContextProvider.Provider value={{ user, signWithGoogle }}>
             {children}
