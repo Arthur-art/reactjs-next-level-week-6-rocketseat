@@ -5,7 +5,7 @@ import logoImg from '../assets/images/logo.svg'
 import googleImg from '../assets/images/google-icon.svg'
 import { Button } from '../components/Button'
 import '../styles/auth.scss'
-import { authContextProvider } from "../App"
+import { authContextProvider } from "../contexts/AuthContext"
 
 export const NewRoom = () => {
 
@@ -20,7 +20,6 @@ export const NewRoom = () => {
                     <p>Tire dúvidas da sua audiência em tempo real</p>
                 </aside>
                 <main>
-                    {user && <h1>{user.name}</h1>}
                     <div className="main-content">
                         <img src={logoImg} alt="Letmeask" />
                         <h2>Criar uma nova sala</h2>

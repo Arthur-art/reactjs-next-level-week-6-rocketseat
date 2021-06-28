@@ -4,7 +4,7 @@ import illustrationImg from '../assets/images/illustration.svg'
 import logoImg from '../assets/images/logo.svg'
 import googleImg from '../assets/images/google-icon.svg'
 import { Button } from '../components/Button'
-import { authContextProvider } from '../App'
+import { authContextProvider } from '../contexts/AuthContext'
 import '../styles/auth.scss'
 
 
