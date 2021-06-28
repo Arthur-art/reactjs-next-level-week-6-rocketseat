@@ -5,12 +5,10 @@ import logoImg from '../assets/images/logo.svg'
 import googleImg from '../assets/images/google-icon.svg'
 import { Button } from '../components/Button'
 import '../styles/auth.scss'
-import { TextContext } from "../App"
+import { authContextProvider } from "../App"
 
 export const NewRoom = () => {
-
-    const {context, setContext} = useContext(TextContext)
-
+    
     return (
         <>
             <div id="page-auth">

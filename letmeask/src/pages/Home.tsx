@@ -1,26 +1,20 @@
 import React, { useContext } from 'react'
 import { useHistory } from 'react-router-dom'
-import { firebase, auth } from '../services/firebase'
 import illustrationImg from '../assets/images/illustration.svg'
 import logoImg from '../assets/images/logo.svg'
 import googleImg from '../assets/images/google-icon.svg'
 import { Button } from '../components/Button'
-import { TextContext } from '../App'
+import { authContextProvider } from '../App'
 import '../styles/auth.scss'
 
 
 export const Home = () => {
 
     const history = useHistory();
-    const { context, setContext } = useContext(TextContext)
+    const contextAuth = useContext(authContextProvider)
 
     const handleCreateRoom = () => {
-        const provider = new firebase.auth.GoogleAuthProvider();
-
-        auth.signInWithPopup(provider).then((result) => {
-            console.log(result)
-            history.push("/rooms/news")
-        })
+        history.push("/rooms/news")
     }
 
     return (
@@ -32,7 +26,6 @@ export const Home = () => {
                     <p>Tire dúvidas da sua audiência em tempo real</p>
                 </aside>
                 <main>
-                    <h1>{context}</h1>
                     <div className="main-content">
                         <img src={logoImg} alt="Letmeask" />
                         <button onClick={handleCreateRoom} className="create-room">

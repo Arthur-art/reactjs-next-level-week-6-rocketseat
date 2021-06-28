@@ -1,22 +1,54 @@
-import React, { createContext,useState } from 'react'
+import React, { createContext, useState } from 'react'
+import { firebase, auth } from './services/firebase'
 
 import { Home } from './pages/Home'
 import { NewRoom } from './pages/NewRoom'
 
 import { BrowserRouter, Route } from "react-router-dom"
 
-export const TextContext = createContext({} as any)
+type User = {
+    id: string;
+    name: string;
+    imgProfile: any;
+}
+
+type AuthContextType = {
+    user: User | undefined;
+    signWithGoogle: () => void;
+}
+
+export const authContextProvider = createContext({} as AuthContextType)
 
 export const App = ({ text }: any) => {
 
-    const [context, setContext] = useState("")
+    const [user, setUser] = useState<User>()
+
+
+    function signWithGoogle() {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        auth.signInWithPopup(provider).then((result) => {
+            if (result.user) {
+                const { displayName, photoURL, uid } = result.user;
+                
+                if (!displayName || photoURL) {
+                    throw new Error("Conta da google invalida")
+                }
+
+                setUser({
+                    id: uid,
+                    name: displayName,
+                    imgProfile: photoURL
+                })
+            }
+        })
+    }
 
     return (
-        <TextContext.Provider value={{context, setContext}}>
+        <authContextProvider.Provider value={{ user, signWithGoogle }}>
             <BrowserRouter>
                 <Route path="/" exact component={Home} />
                 <Route path="/rooms/news" component={NewRoom} />
             </BrowserRouter>
-        </TextContext.Provider>
+        </authContextProvider.Provider>
     )
 }
