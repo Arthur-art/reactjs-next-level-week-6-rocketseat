@@ -12,7 +12,7 @@ import '../styles/auth.scss'
 export const Home = () => {
 
     const history = useHistory();
-    const value = useContext(TextContext)
+    const { context, setContext } = useContext(TextContext)
 
     const handleCreateRoom = () => {
         const provider = new firebase.auth.GoogleAuthProvider();
@@ -32,7 +32,7 @@ export const Home = () => {
                     <p>Tire dúvidas da sua audiência em tempo real</p>
                 </aside>
                 <main>
-                    <h1>{value}</h1>
+                    <h1>{context}</h1>
                     <div className="main-content">
                         <img src={logoImg} alt="Letmeask" />
                         <button onClick={handleCreateRoom} className="create-room">

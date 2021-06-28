@@ -7,10 +7,9 @@ import { Button } from '../components/Button'
 import '../styles/auth.scss'
 import { TextContext } from "../App"
 
-
 export const NewRoom = () => {
 
-    const value = useContext(TextContext)
+    const {context, setContext} = useContext(TextContext)
 
     return (
         <>
