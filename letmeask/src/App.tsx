@@ -8,13 +8,13 @@ import { BrowserRouter, Route } from "react-router-dom"
 
 type User = {
     id: string;
-    name: string;
+    name: string | null;
     imgProfile: any;
 }
 
 type AuthContextType = {
     user: User | undefined;
-    signWithGoogle: () => void;
+    signWithGoogle: () => Promise<void>;
 }
 
 export const authContextProvider = createContext({} as AuthContextType)
@@ -24,23 +24,23 @@ export const App = ({ text }: any) => {
     const [user, setUser] = useState<User>()
 
 
-    function signWithGoogle() {
+    async function signWithGoogle() {
         const provider = new firebase.auth.GoogleAuthProvider();
-        auth.signInWithPopup(provider).then((result) => {
-            if (result.user) {
-                const { displayName, photoURL, uid } = result.user;
-                
-                if (!displayName || photoURL) {
-                    throw new Error("Conta da google invalida")
-                }
+        const result = await auth.signInWithPopup(provider);
 
-                setUser({
-                    id: uid,
-                    name: displayName,
-                    imgProfile: photoURL
-                })
+        if (result.user) {
+            const { displayName, photoURL, uid } = result.user;
+
+            if (!displayName || !photoURL) {
+                throw new Error("Conta da google invalida")
             }
-        })
+
+            setUser({
+                id: uid,
+                name: displayName,
+                imgProfile: photoURL
+            })
+        }
     }
 
     return (

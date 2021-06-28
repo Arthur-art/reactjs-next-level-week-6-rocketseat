@@ -8,7 +8,9 @@ import '../styles/auth.scss'
 import { authContextProvider } from "../App"
 
 export const NewRoom = () => {
-    
+
+    const {user, signWithGoogle} = useContext(authContextProvider)
+
     return (
         <>
             <div id="page-auth">
@@ -18,6 +20,7 @@ export const NewRoom = () => {
                     <p>Tire dúvidas da sua audiência em tempo real</p>
                 </aside>
                 <main>
+                    {user && <h1>{user.name}</h1>}
                     <div className="main-content">
                         <img src={logoImg} alt="Letmeask" />
                         <h2>Criar uma nova sala</h2>

@@ -11,9 +11,12 @@ import '../styles/auth.scss'
 export const Home = () => {
 
     const history = useHistory();
-    const contextAuth = useContext(authContextProvider)
+    const {user,signWithGoogle} = useContext(authContextProvider)
 
-    const handleCreateRoom = () => {
+    const handleCreateRoom = async () => {
+        if(!user){
+           await signWithGoogle()
+        }
         history.push("/rooms/news")
     }
 
