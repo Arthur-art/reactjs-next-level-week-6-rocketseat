@@ -5,12 +5,12 @@ import logoImg from '../assets/images/logo.svg'
 import googleImg from '../assets/images/google-icon.svg'
 import { Button } from '../components/Button'
 import '../styles/auth.scss'
-import { authContextProvider } from "../contexts/AuthContext"
 import { useState } from 'react'
+import { useAuth } from '../hooks/useAuth'
 
 export const NewRoom = () => {
 
-    const {user, signWithGoogle} = useContext(authContextProvider)
+    const {user, signWithGoogle} = useAuth()
 
     const [newRoom, setNewRoom] = useState("")
 

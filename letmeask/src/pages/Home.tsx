@@ -6,12 +6,13 @@ import googleImg from '../assets/images/google-icon.svg'
 import { Button } from '../components/Button'
 import { authContextProvider } from '../contexts/AuthContext'
 import '../styles/auth.scss'
+import { useAuth } from '../hooks/useAuth'
 
 
 export const Home = () => {
 
     const history = useHistory();
-    const {user,signWithGoogle} = useContext(authContextProvider)
+    const {user,signWithGoogle} = useAuth()
 
     const handleCreateRoom = async () => {
         if(!user){
