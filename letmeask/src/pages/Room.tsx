@@ -1,6 +1,7 @@
 import { FormEvent } from 'react'
 import logoImg from "../assets/images/logo.svg"
 import { Button } from "../components/Button"
+import { RoomCode } from "../components/RoomCodes"
 import "../styles/room.scss"
 
 export const Room = () => {
@@ -10,7 +11,7 @@ export const Room = () => {
             <header>
                 <div className="content">
                     <img src={logoImg} alt="letmeask" />
-                    <div>codigo</div>
+                    <RoomCode/>
                 </div>
             </header>
             <main>
