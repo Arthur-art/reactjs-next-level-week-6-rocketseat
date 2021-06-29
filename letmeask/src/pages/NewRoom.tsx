@@ -1,4 +1,4 @@
-import React, { useContext,FormEvent } from 'react'
+import React, { useContext, FormEvent } from 'react'
 import { Link } from 'react-router-dom'
 import illustrationImg from '../assets/images/illustration.svg'
 import logoImg from '../assets/images/logo.svg'
@@ -7,18 +7,26 @@ import { Button } from '../components/Button'
 import '../styles/auth.scss'
 import { useState } from 'react'
 import { useAuth } from '../hooks/useAuth'
+import { database } from '../services/firebase'
 
 export const NewRoom = () => {
 
-    const {user, signWithGoogle} = useAuth()
+    const { user } = useAuth()
 
     const [newRoom, setNewRoom] = useState("")
 
-    const handleCreateRoom = (event:FormEvent)=>{
+    const handleCreateRoom = (event: FormEvent) => {
         event.preventDefault()
-        if(newRoom.trim() === ""){
+        if (newRoom.trim() === "") {
             return;
         }
+
+        const roomRef = database.ref('rooms')
+
+        const firebaseRoom = roomRef.push({
+            title: newRoom,
+            authorId: user?.id
+        })
     }
 
     return (
