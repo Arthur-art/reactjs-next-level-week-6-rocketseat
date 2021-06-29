@@ -2,7 +2,7 @@ export const Room = ()=>{
 
     return(
         <>
-            <h1>Barata</h1>
+            <h1>Room</h1>
         </>
     )
 }
