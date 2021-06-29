@@ -14,12 +14,12 @@ export const Room = () => {
                 </div>
             </header>
             <main>
-                <div className="rooom-title">
+                <div className="room-title">
                     <h1>Sala - React</h1>
                     <span>4 perguntas</span>
                 </div>
                 <form onSubmit={(event: FormEvent) => event.preventDefault()} >
-                    <textarea placeholder="O que você quer peruntar" />
+                    <textarea placeholder="O que você quer perguntar" />
                     <div className="form-footer">
                         <span>Para enviar uma pergunta, <button>faça seu login.</button></span>
                         <Button type="submit">Enviar pergunta</Button>
