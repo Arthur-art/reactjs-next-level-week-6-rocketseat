@@ -24,7 +24,7 @@ export const Room = () => {
     const name = user.user?.name || nameStorage;
 
     const notfy = () => toast.error("Você não digitou uma pergunta :(");
-    const notfyWelcome = () => toast.success(`Olá ${name.split(" ")[0]}, seja bem-vindo!`);
+    const notfyWelcome = () => toast.success(`Olá ${name.split(" ")[0]} ${name.split(" ")[1]}, seja bem-vindo!`);
     const notfyOff = () => toast.error("Você não está logado.");
 
     const handleSendQuestion = (event: FormEvent) => {
