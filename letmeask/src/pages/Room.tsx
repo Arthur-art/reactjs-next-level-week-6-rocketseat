@@ -18,12 +18,23 @@ type RoomParams = {
 export const Room = () => {
 
     const [newQuestion, setNewQuestion] = useState("")
+    const [nameClass, setNameClass] = useState("")
 
     const { user } = useAuth();
     const params = useParams<RoomParams>();
     const roomId = params.id;
     const nameStorage = JSON.parse(localStorage.getItem("name") || "");
     const nameUser = user?.name || nameStorage;
+
+    useEffect(()=>{
+        const roomRef = database.ref(`rooms/${roomId}`);
+
+        roomRef.once('value', room =>{
+            const data = room.val();
+            setNameClass(data.title)
+        })
+    },[])
+
 
     const notfy = () => toast.error("Você não digitou uma pergunta :(");
     const notfyWelcome = () => toast.success(`Olá ${nameUser.split(" ")[0]} ${nameUser.split(" ")[1]}, seja bem-vindo!`);
@@ -73,7 +84,7 @@ export const Room = () => {
             </header>
             <main>
                 <div className="room-title">
-                    <h1>Sala - React</h1>
+                    <h1>Sala : {nameClass || "Buscando sala..."}</h1>
                     <span>4 perguntas</span>
                 </div>
                 <form onSubmit={handleSendQuestion} >
