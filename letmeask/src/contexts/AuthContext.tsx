@@ -39,6 +39,7 @@ useEffect(() => {
                 name: displayName,
                 imgProfile: photoURL
             })
+            localStorage.setItem("name", JSON.stringify(displayName))
         }
     })
     return () => {

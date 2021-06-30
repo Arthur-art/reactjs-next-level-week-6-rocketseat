@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { FormEvent, useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
 import { useParams } from 'react-router-dom'
@@ -9,17 +10,22 @@ import "../styles/room.scss"
 
 type RoomParams = {
     id: string;
+    name: string;
 }
 
 export const Room = () => {
-
-    const notfy = () => toast.error("Você não digitou uma pergunta :(");
 
     const [newQuestion, setNewQuestion] = useState("")
 
     const user = useAuth();
     const params = useParams<RoomParams>();
     const roomId = params.id;
+    const nameStorage = JSON.parse(localStorage.getItem("name") || "");
+    const name = user.user?.name || nameStorage;
+
+    const notfy = () => toast.error("Você não digitou uma pergunta :(");
+    const notfyWelcome = () => toast.success(`Olá ${name.split(" ")[0]}, seja bem-vindo!`);
+    const notfyOff = () => toast.error("Você não está logado.");
 
     const handleSendQuestion = (event: FormEvent) => {
         event.preventDefault()
@@ -29,10 +35,16 @@ export const Room = () => {
         }
 
         if (!user) {
-            alert("Você não está logado.")
+            notfyOff()
             return;
         }
     }
+    
+    useEffect(() => {
+        notfyWelcome()
+        console.log(user)
+        return;
+    }, [])
 
     return (
         <div id="page-room">
