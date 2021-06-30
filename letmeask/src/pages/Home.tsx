@@ -1,4 +1,5 @@
 import { FormEvent, useState } from 'react'
+import toast, { Toaster } from 'react-hot-toast'
 import { useHistory } from 'react-router-dom'
 import { database } from '../services/firebase'
 import illustrationImg from '../assets/images/illustration.svg'
@@ -15,6 +16,9 @@ export const Home = () => {
     const { user, signWithGoogle } = useAuth()
     const [roomCode, setRoomCode] = useState("")
 
+    const notfy = () => toast.error("Está sala não existe :(")
+    const notfyNull = () => toast.error("Escreva o código de uma sala existente.")
+
     const handleCreateRoom = async () => {
         if (!user) {
             await signWithGoogle()
@@ -25,13 +29,14 @@ export const Home = () => {
     const handleJoinRoom = async (event: FormEvent) => {
         event.preventDefault()
         if (roomCode.trim() === "") {
+            notfyNull()
             return;
         }
 
         const roomRef = await database.ref(`rooms/${roomCode}`).get();
 
-        if(!roomRef.exists()){
-            alert("Está sala não existe :(")
+        if (!roomRef.exists()) {
+            notfy()
             return;
         }
 
@@ -47,6 +52,7 @@ export const Home = () => {
                     <p>Tire dúvidas da sua audiência em tempo real</p>
                 </aside>
                 <main>
+                    <Toaster />
                     <div className="main-content">
                         <img src={logoImg} alt="Letmeask" />
                         <button onClick={handleCreateRoom} className="create-room">

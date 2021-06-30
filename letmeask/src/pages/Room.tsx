@@ -13,7 +13,7 @@ type RoomParams = {
 
 export const Room = () => {
 
-    const notfy = () => toast.error("Você não digitou uma pergunta");
+    const notfy = () => toast.error("Você não digitou uma pergunta :(");
 
     const [newQuestion, setNewQuestion] = useState("")
 
