@@ -6,6 +6,7 @@ import logoImg from "../assets/images/logo.svg"
 import { Button } from "../components/Button"
 import { RoomCode } from "../components/RoomCode"
 import { useAuth } from "../hooks/useAuth"
+import { database } from '../services/firebase'
 import "../styles/room.scss"
 
 type RoomParams = {
@@ -13,21 +14,23 @@ type RoomParams = {
     name: string;
 }
 
+
 export const Room = () => {
 
     const [newQuestion, setNewQuestion] = useState("")
 
-    const user = useAuth();
+    const { user } = useAuth();
     const params = useParams<RoomParams>();
     const roomId = params.id;
     const nameStorage = JSON.parse(localStorage.getItem("name") || "");
-    const name = user.user?.name || nameStorage;
+    const nameUser = user?.name || nameStorage;
 
     const notfy = () => toast.error("Você não digitou uma pergunta :(");
-    const notfyWelcome = () => toast.success(`Olá ${name.split(" ")[0]} ${name.split(" ")[1]}, seja bem-vindo!`);
+    const notfyWelcome = () => toast.success(`Olá ${nameUser.split(" ")[0]} ${nameUser.split(" ")[1]}, seja bem-vindo!`);
     const notfyOff = () => toast.error("Você não está logado.");
+    const notFySend = () => toast.success("Pergunta Enviada com sucesso!")
 
-    const handleSendQuestion = (event: FormEvent) => {
+    const handleSendQuestion = async (event: FormEvent) => {
         event.preventDefault()
         if (newQuestion.trim() === "") {
             notfy();
@@ -38,11 +41,25 @@ export const Room = () => {
             notfyOff()
             return;
         }
+
+        const question = {
+            content: newQuestion,
+            author: {
+                name: user?.name,
+                imgProfile: user?.imgProfile
+            },
+            isHighlighted: false,
+            isAnswered: false
+        };
+
+        await database.ref(`rooms/${roomId}/questions`).push(question);
+        notFySend()
     }
-    
+
+
+
     useEffect(() => {
         notfyWelcome()
-        console.log(user)
         return;
     }, [])
 
@@ -66,7 +83,7 @@ export const Room = () => {
                         placeholder="O que você quer perguntar" />
                     <div className="form-footer">
                         <span>Para enviar uma pergunta, <button>faça seu login.</button></span>
-                        {user && <Button type="submit">Enviar pergunta</Button>}
+                        <Button disabled={!user} type="submit">Enviar pergunta</Button>
                     </div>
                 </form>
             </main>
