@@ -17,7 +17,7 @@ export const RoomCode = ({ code }: RoomCodeProps) => {
             <div>
                 <img src={copyImg} alt="Copy Image" />
             </div>
-            <span>Sala {code}</span>
+            <span>{code}</span>
         </button>
     )
 }
