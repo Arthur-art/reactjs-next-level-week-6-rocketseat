@@ -54,14 +54,14 @@ export const Room = () => {
 
         await database.ref(`rooms/${roomId}/questions`).push(question);
         notFySend()
+        setNewQuestion("")
     }
-
 
 
     useEffect(() => {
         notfyWelcome()
         return;
-    }, [])
+    },[])
 
     return (
         <div id="page-room">
@@ -79,10 +79,16 @@ export const Room = () => {
                 <form onSubmit={handleSendQuestion} >
                     <Toaster />
                     <textarea
+                        value={newQuestion}
                         onChange={(event) => setNewQuestion(event.target.value)}
                         placeholder="O que você quer perguntar" />
                     <div className="form-footer">
-                        <span>Para enviar uma pergunta, <button>faça seu login.</button></span>
+                        {!user ?
+                            <span>Para enviar uma pergunta, <button>faça seu login.</button></span>
+                            : <div className="img-profile">
+                                    <img src={user.imgProfile} alt="UserProfile" />
+                                    <span>{`${user.name?.split(" ")[0]} ${user.name?.split(" ")[1]} `}</span>
+                                </div>}
                         <Button disabled={!user} type="submit">Enviar pergunta</Button>
                     </div>
                 </form>
