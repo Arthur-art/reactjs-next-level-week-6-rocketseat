@@ -49,8 +49,11 @@ export const NewRoom = () => {
                     <Toaster/>
                     <div className="main-content">
                         <img src={logoImg} alt="Letmeask" /><br/>
-                        <img id="user-profile" src={user?.imgProfile} alt="UserProfile" /><br/>
-                        <span>{`Bem vindo ${user?.name?.split(" ")[0]} ${user?.name?.split(" ")[1]} !`}</span>
+                       <>
+                       {user?.avatar ? <><img id="user-profile" src={user?.avatar} alt="UserProfile" /><br/></>
+                       : <>Carregando...<br/></>}
+                       </>
+                        {user?.name ? <span>{`Bem vindo ${user?.name?.split(" ")[0]} ${user?.name?.split(" ")[1]} !`}</span> : "Carregando..."}
                         <h2>Criar uma nova sala</h2>
                         <form onSubmit={handleCreateRoom}>
                             <input onChange={event => setNewRoom(event.target.value)} type="text" placeholder="Nome da sala" />

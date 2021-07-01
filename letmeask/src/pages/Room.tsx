@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { FormEvent, useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import logoImg from "../assets/images/logo.svg"
 import { Button } from "../components/Button"
 import { RoomCode } from "../components/RoomCode"
@@ -14,6 +14,15 @@ type RoomParams = {
     name: string;
 }
 
+type FirebaseQuestions = Record<string, {
+    author: {
+        name: string;
+        avatar: string;
+    }
+    content: string;
+    isHighlighted: boolean;
+    isAnswered: boolean;
+}>
 
 export const Room = () => {
 
@@ -25,16 +34,26 @@ export const Room = () => {
     const roomId = params.id;
     const nameStorage = JSON.parse(localStorage.getItem("name") || "");
     const nameUser = user?.name || nameStorage;
+    const history = useHistory()
 
-    useEffect(()=>{
+    useEffect(() => {
         const roomRef = database.ref(`rooms/${roomId}`);
 
-        roomRef.once('value', room =>{
+        roomRef.once('value', room => {
             const data = room.val();
-            console.log(data)
-            setNameClass(data.title)
+            setNameClass(data.title);
+            const databaseRoom = room.val();
+            const firebaseQuestions: FirebaseQuestions = databaseRoom.questions ?? {};
+            const parsedQuestions = Object.entries(firebaseQuestions).map(([key, value]) => {
+                return {
+                    author: value.author,
+                    content: value.content,
+                    isHighlighted: value.isHighlighted,
+                    isAnswered: value.isAnswered
+                }
+            })
         })
-    },[])
+    }, [roomId])
 
 
     const notfy = () => toast.error("Você não digitou uma pergunta :(");
@@ -58,7 +77,7 @@ export const Room = () => {
             content: newQuestion,
             author: {
                 name: user?.name,
-                imgProfile: user?.imgProfile
+                avatar: user?.avatar
             },
             isHighlighted: false,
             isAnswered: false
@@ -69,11 +88,15 @@ export const Room = () => {
         setNewQuestion("")
     }
 
+    const handleExit = () => {
+        history.push("/")
+    }
+
 
     useEffect(() => {
         notfyWelcome()
         return;
-    },[])
+    }, [])
 
     return (
         <div id="page-room">
@@ -83,6 +106,7 @@ export const Room = () => {
                     <RoomCode code={roomId} />
                 </div>
             </header>
+            <Button disabled={!user} onClick={handleExit}>Sair</Button>
             <main>
                 <div className="room-title">
                     <h1>Sala : {nameClass || "Buscando sala..."}</h1>
@@ -98,9 +122,9 @@ export const Room = () => {
                         {!user ?
                             <span>Para enviar uma pergunta, <button>faça seu login.</button></span>
                             : <div className="img-profile">
-                                    <img src={user.imgProfile} alt="UserProfile" />
-                                    <span>{`${user.name?.split(" ")[0]} ${user.name?.split(" ")[1]} `}</span>
-                                </div>}
+                                <img src={user.avatar} alt="UserProfile" />
+                                <span>{`${user.name?.split(" ")[0]} ${user.name?.split(" ")[1]} `}</span>
+                            </div>}
                         <Button disabled={!user} type="submit">Enviar pergunta</Button>
                     </div>
                 </form>

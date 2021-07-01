@@ -4,7 +4,7 @@ import {auth,firebase} from "../services/firebase"
 type User = {
     id: string;
     name: string | null;
-    imgProfile: any;
+    avatar: any;
 }
 
 type AuthContextType = {
@@ -37,7 +37,7 @@ useEffect(() => {
             setUser({
                 id: uid,
                 name: displayName,
-                imgProfile: photoURL
+                avatar: photoURL
             })
             localStorage.setItem("name", JSON.stringify(displayName))
         }
@@ -62,7 +62,7 @@ async function signWithGoogle() {
         setUser({
             id: uid,
             name: displayName,
-            imgProfile: photoURL
+            avatar: photoURL
         })
     }
 }
