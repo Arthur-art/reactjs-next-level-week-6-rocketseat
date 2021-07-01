@@ -24,10 +24,22 @@ type FirebaseQuestions = Record<string, {
     isAnswered: boolean;
 }>
 
+type Question = {
+    id: string;
+    author: {
+        name: string;
+        avatar: string;
+    }
+    content: string;
+    isHighlighted: boolean;
+    isAnswered: boolean;
+}
+
 export const Room = () => {
 
     const [newQuestion, setNewQuestion] = useState("")
     const [nameClass, setNameClass] = useState("")
+    const [questions, setQuestions] = useState<Question[]>()
 
     const { user } = useAuth();
     const params = useParams<RoomParams>();
@@ -46,16 +58,19 @@ export const Room = () => {
             const firebaseQuestions: FirebaseQuestions = databaseRoom.questions ?? {};
             const parsedQuestions = Object.entries(firebaseQuestions).map(([key, value]) => {
                 return {
+                    id:key,
                     author: value.author,
                     content: value.content,
                     isHighlighted: value.isHighlighted,
                     isAnswered: value.isAnswered
                 }
             })
+            setQuestions(parsedQuestions)
+           
         })
     }, [roomId])
 
-
+    console.log(questions)
     const notfy = () => toast.error("Você não digitou uma pergunta :(");
     const notfyWelcome = () => toast.success(`Olá ${nameUser.split(" ")[0]} ${nameUser.split(" ")[1]}, seja bem-vindo!`);
     const notfyOff = () => toast.error("Você não está logado.");
