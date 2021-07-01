@@ -7,10 +7,13 @@ import '../styles/auth.scss'
 import { useState } from 'react'
 import { useAuth } from '../hooks/useAuth'
 import { database } from '../services/firebase'
+import toast, { Toaster } from 'react-hot-toast'
 
 export const NewRoom = () => {
 
     const { user } = useAuth()
+    
+    const notfy = () => toast.error("Digite um nome para sua sala.")
 
     const history = useHistory()
 
@@ -19,6 +22,7 @@ export const NewRoom = () => {
     const handleCreateRoom = async (event: FormEvent) => {
         event.preventDefault()
         if (newRoom.trim() === "") {
+            notfy()
             return;
         }
 
@@ -42,8 +46,11 @@ export const NewRoom = () => {
                     <p>Tire dúvidas da sua audiência em tempo real</p>
                 </aside>
                 <main>
+                    <Toaster/>
                     <div className="main-content">
-                        <img src={logoImg} alt="Letmeask" />
+                        <img src={logoImg} alt="Letmeask" /><br/>
+                        <img id="user-profile" src={user?.imgProfile} alt="UserProfile" /><br/>
+                        <span>{`Bem vindo ${user?.name?.split(" ")[0]} ${user?.name?.split(" ")[1]} !`}</span>
                         <h2>Criar uma nova sala</h2>
                         <form onSubmit={handleCreateRoom}>
                             <input onChange={event => setNewRoom(event.target.value)} type="text" placeholder="Nome da sala" />

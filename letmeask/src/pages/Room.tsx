@@ -31,6 +31,7 @@ export const Room = () => {
 
         roomRef.once('value', room =>{
             const data = room.val();
+            console.log(data)
             setNameClass(data.title)
         })
     },[])

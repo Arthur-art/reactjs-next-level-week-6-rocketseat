@@ -8,6 +8,7 @@
         background: var(--black);
         color: var(--white);
         display: flex;
+        align-items: center;
         justify-content: center;
         flex-direction: column;
         padding: 120px 80px;
@@ -47,6 +48,10 @@
 
             > img {
                 align-self: center;
+            }
+
+            #user-profile{
+                border-radius: 5rem;
             }
 
             h2{
