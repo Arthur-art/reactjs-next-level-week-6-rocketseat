@@ -51,7 +51,7 @@ export const Room = () => {
     useEffect(() => {
         const roomRef = database.ref(`rooms/${roomId}`);
 
-        roomRef.once('value', room => {
+        roomRef.on('value', room => {
             const data = room.val();
             setNameClass(data.title);
             const databaseRoom = room.val();
@@ -148,8 +148,12 @@ export const Room = () => {
                             </div>}
                         <Button disabled={!user} type="submit">Enviar pergunta</Button>
                     </div>
-                </form>
-                {questions ? JSON.stringify(questions[0].content) : "Carregando as perguntas..."}
+                </form><ol>
+                {questions ? questions.map((value: any) => {
+
+                  return  <li>{JSON.stringify(value.content)}</li>
+
+                }) : "Carregando as perguntas..."}</ol>
             </main>
         </div>
     )
