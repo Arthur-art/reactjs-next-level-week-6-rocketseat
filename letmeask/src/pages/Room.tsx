@@ -58,7 +58,7 @@ export const Room = () => {
             const firebaseQuestions: FirebaseQuestions = databaseRoom.questions ?? {};
             const parsedQuestions = Object.entries(firebaseQuestions).map(([key, value]) => {
                 return {
-                    id:key,
+                    id: key,
                     author: value.author,
                     content: value.content,
                     isHighlighted: value.isHighlighted,
@@ -66,11 +66,11 @@ export const Room = () => {
                 }
             })
             setQuestions(parsedQuestions)
-           
+
         })
     }, [roomId])
 
-    console.log(questions)
+    console.log("questions", questions)
     const notfy = () => toast.error("Você não digitou uma pergunta :(");
     const notfyWelcome = () => toast.success(`Olá ${nameUser.split(" ")[0]} ${nameUser.split(" ")[1]}, seja bem-vindo!`);
     const notfyOff = () => toast.error("Você não está logado.");
@@ -113,14 +113,20 @@ export const Room = () => {
         return;
     }, [])
 
-    return (
-        <div id="page-room">
+    const Header = () => {
+        return <>
             <header>
                 <div className="content">
                     <img src={logoImg} alt="letmeask" />
                     <RoomCode code={roomId} />
                 </div>
             </header>
+        </>
+    }
+
+    return (
+        <div id="page-room">
+            <Header />
             <Button disabled={!user} onClick={handleExit}>Sair</Button>
             <main>
                 <div className="room-title">
@@ -143,6 +149,7 @@ export const Room = () => {
                         <Button disabled={!user} type="submit">Enviar pergunta</Button>
                     </div>
                 </form>
+                {questions ? JSON.stringify(questions[0].content) : "Carregando as perguntas..."}
             </main>
         </div>
     )

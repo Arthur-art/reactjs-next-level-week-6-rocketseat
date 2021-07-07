@@ -5,15 +5,15 @@
 }
 
 :root {
-    --white: #f5f6fa;
+    --white: #ffffff;
     --black: #1e272e;
     --grey: #dfe4ea;
     --red: #ea4335;
 }
 
 body {
-    background: #f8f8f8;
-    color: #29292e;
+    background: var(--white);
+    color: var(--black);
 }
 
 body,
